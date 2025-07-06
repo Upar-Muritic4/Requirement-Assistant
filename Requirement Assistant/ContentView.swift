@@ -424,9 +424,11 @@ struct ContentView: View {
             suggestions.insert("・性能、品質、セキュリティ、可用性など、非機能要件の具体的な数値目標や基準を明確にしましょう。")
         }
 
+        print("Debug: contentByHeading for performanceContent: \(contentByHeading.first(where: { $0.key.contains("性能要求") }))")
         if let performanceContent = contentByHeading.first(where: { $0.key.contains("性能要求") })?.value.joined(), performanceContent.count < 50 && !performanceContent.isEmpty {
             suggestions.insert("・性能要求には、応答時間、スループット、同時接続数など、具体的な数値目標を記述しましょう。")
         }
+        print("Debug: contentByHeading for securityContent: \(contentByHeading.first(where: { $0.key.contains("セキュリティ要件") }))")
         if let securityContent = contentByHeading.first(where: { $0.key.contains("セキュリティ要件") })?.value.joined(), securityContent.count < 50 && !securityContent.isEmpty {
             suggestions.insert("・セキュリティ要件には、認証、認可、データ暗号化、脆弱性対策など、具体的な対策を記述しましょう。")
         }
