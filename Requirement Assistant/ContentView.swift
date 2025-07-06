@@ -27,6 +27,11 @@ struct ContentView: View {
     @State private var showSaveConfirmation = false
     /// 保存されたファイルのパスを保持するState
     @State private var savedFilePath = ""
+    
+    /// エラーアラートの表示状態を制御するState
+    @State private var showErrorAlert = false
+    /// エラーメッセージを保持するState
+    @State private var errorMessage = ""
 
     /// アプリケーションのメインUIを構築するBodyプロパティ
     var body: some View {
@@ -124,6 +129,11 @@ struct ContentView: View {
             Button("OK", role: .cancel) { }
         } message: {
             Text("ファイルは以下の場所に保存されました：\n\(savedFilePath)")
+        }
+        .alert("保存エラー", isPresented: $showErrorAlert) {
+            Button("OK", role: .cancel) { }
+        } message: {
+            Text(errorMessage)
         }
     }
 
@@ -529,12 +539,8 @@ struct ContentView: View {
 
     // エラーアラートを表示するためのヘルパー関数
     private func showErrorAlert(message: String) {
-        let alert = NSAlert()
-        alert.messageText = "保存エラー"
-        alert.informativeText = message
-        alert.alertStyle = .critical
-        alert.addButton(withTitle: "OK")
-        alert.runModal()
+        self.errorMessage = message
+        self.showErrorAlert = true
     }
 
     /// プレビュー用のContentView
