@@ -196,7 +196,6 @@ struct ContentView: View {
             print("Error in convertToMarkdown: \(error.localizedDescription)")
         }
     }
-    }
 
     /// 指定されたキーに合致する最初の見出しの内容を取得するヘルパー関数
     /// - Parameters:
