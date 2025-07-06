@@ -446,6 +446,7 @@ struct ContentView: View {
 
     /// Markdown形式の要件定義をファイルに保存する
     func saveMarkdownToFile() {
+        print("saveMarkdownToFile called")
         // メインスレッドでファイル保存ダイアログを表示
         DispatchQueue.main.async {
             let panel = NSSavePanel()
@@ -453,10 +454,13 @@ struct ContentView: View {
             panel.canCreateDirectories = true // ディレクトリ作成を許可
             panel.nameFieldStringValue = "\(self.fileName).md" // デフォルトのファイル名
 
+            print("NSSavePanel presented for Markdown")
             // 保存ダイアログが表示され、ユーザーがOKを選択した場合
             if panel.runModal() == .OK {
                 guard let url = panel.url else {
-                    print("Error: Could not get save URL.")
+                    print("Error: Could not get save URL for Markdown.")
+                    // エラーアラートを表示
+                    self.showErrorAlert(message: "ファイルの保存先URLを取得できませんでした。")
                     return
                 }
                 do {
@@ -467,17 +471,22 @@ struct ContentView: View {
                     // 保存成功時のパスを保存し、確認アラートを表示
                     self.savedFilePath = url.path
                     self.showSaveConfirmation = true
+                    print("Markdown file saved successfully to: \(url.path)")
                     
                 } catch { // ファイル書き込みエラー時の処理
-                    print("Error saving file: \(error.localizedDescription)")
-                    // ここでユーザーにエラーアラートを表示することも可能
+                    print("Error saving Markdown file: \(error.localizedDescription)")
+                    // エラーアラートを表示
+                    self.showErrorAlert(message: "Markdownファイルの保存中にエラーが発生しました: \(error.localizedDescription)")
                 }
+            } else {
+                print("Markdown save panel cancelled by user.")
             }
         }
     }
 
     /// 要約情報をファイルに保存する
     func saveSummaryToFile() {
+        print("saveSummaryToFile called")
         // メインスレッドでファイル保存ダイアログを表示
         DispatchQueue.main.async {
             let panel = NSSavePanel()
@@ -485,10 +494,13 @@ struct ContentView: View {
             panel.canCreateDirectories = true // ディレクトリ作成を許可
             panel.nameFieldStringValue = "\(self.fileName)_要約.txt" // デフォルトのファイル名
 
+            print("NSSavePanel presented for Summary")
             // 保存ダイアログが表示され、ユーザーがOKを選択した場合
             if panel.runModal() == .OK {
                 guard let url = panel.url else {
-                    print("Error: Could not get save URL.")
+                    print("Error: Could not get save URL for Summary.")
+                    // エラーアラートを表示
+                    self.showErrorAlert(message: "ファイルの保存先URLを取得できませんでした。")
                     return
                 }
                 do {
@@ -499,13 +511,27 @@ struct ContentView: View {
                     // 保存成功時のパスを保存し、確認アラートを表示
                     self.savedFilePath = url.path
                     self.showSaveConfirmation = true
+                    print("Summary file saved successfully to: \(url.path)")
                     
                 } catch { // ファイル書き込みエラー時の処理
-                    print("Error saving file: \(error.localizedDescription)")
-                    // ここでユーザーにエラーアラートを表示することも可能
+                    print("Error saving Summary file: \(error.localizedDescription)")
+                    // エラーアラートを表示
+                    self.showErrorAlert(message: "要約ファイルの保存中にエラーが発生しました: \(error.localizedDescription)")
                 }
+            } else {
+                print("Summary save panel cancelled by user.")
             }
         }
+    }
+
+    // エラーアラートを表示するためのヘルパー関数
+    private func showErrorAlert(message: String) {
+        let alert = NSAlert()
+        alert.messageText = "保存エラー"
+        alert.informativeText = message
+        alert.alertStyle = .critical
+        alert.addButton(withTitle: "OK")
+        alert.runModal()
     }
 
     /// プレビュー用のContentView
