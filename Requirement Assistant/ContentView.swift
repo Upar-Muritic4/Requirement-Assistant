@@ -186,13 +186,16 @@ struct ContentView: View {
 
             // 変換結果をMarkdownテキストとして設定
             markdownText = markdownOutput
+            print("markdownText updated. Length: \(NSAttributedString(markdownText).length)")
             // Markdownから要約を生成
             summarizeMarkdown()
 
         } catch {
             // ファイル読み込みエラー時の処理
             markdownText = AttributedString("Error reading file: \(error.localizedDescription)")
+            print("Error in convertToMarkdown: \(error.localizedDescription)")
         }
+    }
     }
 
     /// 指定されたキーに合致する最初の見出しの内容を取得するヘルパー関数
@@ -368,6 +371,7 @@ struct ContentView: View {
 
         // 生成された要約をanalysisTextに設定
         analysisText = AttributedString(summaryString, attributes: AttributeContainer().foregroundColor(NSColor.white))
+        print("analysisText updated. Length: \(NSAttributedString(analysisText).length), Content: \(NSAttributedString(analysisText).string.prefix(100))")
         // 改善提案を生成
         generateSuggestions(contentByHeading: contentByHeading, analysisSummary: summaryString, functionalRequirements: functionalRequirements, nonFunctionalRequirements: nonFunctionalRequirements)
     }
