@@ -1,20 +1,37 @@
-# Requirement Assistant
+# 要件定義アシスタント
 
-## Overview
+## 概要
 
-This is a macOS application designed to assist with managing requirements. It provides a rich text editor for detailed requirement descriptions.
+このアプリケーションは、要件定義の管理を支援するために設計されたmacOSアプリケーションです。詳細な要件記述のためのリッチテキストエディタを提供し、CSVファイルからの要件取り込み、Markdown形式への変換、要約生成、および改善提案の機能を提供します。
 
-## Features
+## 機能
 
-- Rich text editing for requirements.
-- (Add more features here as they are implemented)
+- **CSVからの要件取り込み**: 特定のCSVフォーマットから要件定義を読み込み、アプリケーション内で表示します。
+- **Markdown変換**: 取り込んだCSVデータをMarkdown形式に変換し、視覚的に分かりやすく表示します。
+- **要件の要約**: Markdown形式の要件定義を解析し、主要な項目（目的、関係者、機能要件、非機能要件、技術仕様、制約など）を自動的に抽出し、要約を生成します。
+- **改善提案**: 要約された内容に基づいて、要件定義の不足点や改善点を自動的に提案します。
+- **ファイル保存**: 生成されたMarkdown形式の要件定義や要約情報をファイルとして保存できます。
 
-## How to Run
+## 使い方
 
-1. Open the project in Xcode.
-2. Select the `Requirement Assistant` target.
-3. Build and run the application on your macOS device or simulator.
+1. アプリケーションを起動します。
+2. 「Select CSV File」ボタンをクリックし、要件定義が記述されたCSVファイルを選択します。
+3. CSVファイルが読み込まれると、左側の「要件定義データ」エリアにMarkdown形式で表示され、右側の「要件内容の要約」と「改善ポイント」エリアにそれぞれ要約と提案が表示されます。
+4. 「マークダウン形式の要件定義を保存する」ボタンでMarkdownファイルを保存できます。
+5. 「要件定義の要約情報を保存する」ボタンで要約情報をテキストファイルとして保存できます。
 
-## Development
+## 開発環境
 
-This project is developed using Swift and SwiftUI.
+- **言語**: Swift
+- **フレームワーク**: SwiftUI
+- **開発ツール**: Xcode
+
+## ビルドと実行方法
+
+1. Xcodeでプロジェクトを開きます。
+2. ターゲットとして`Requirement Assistant`を選択します。
+3. macOSデバイスまたはシミュレータでアプリケーションをビルドして実行します。
+
+## 今後の展望
+
+- (ここに今後の機能追加や改善点を記述できます)
